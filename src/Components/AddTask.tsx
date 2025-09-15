@@ -36,6 +36,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({
           textShadow: "1px 1px 2px #000",
           display: "flex",
           justifyContent: "center",
+          fontSize: "20px",
         }}
       >
         New task in {columnTitle}
