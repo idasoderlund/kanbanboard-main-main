@@ -84,6 +84,7 @@ const Board: React.FC = () => {
             gap: "10px",
             padding: "20px",
             justifyContent: "space-around",
+            marginLeft: "200px",
           }}
         >
           {columnsToRender.map((col) => (
