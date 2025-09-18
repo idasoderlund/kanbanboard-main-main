@@ -1,3 +1,22 @@
 body {
   background-color: #a1c2bd;
 }
+
+.columns-container {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .columns-container {
+    flex-wrap: wrap;
+    margin-left: 25px;
+  }
+}
+
+@media (min-width: 770px) {
+  .columns-container {
+    margin-left: 100px;
+  }
+}

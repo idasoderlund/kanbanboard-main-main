@@ -79,22 +79,24 @@ const Board: React.FC = () => {
       )}
       <DndContext onDragEnd={handleDragEnd}>
         <div
+          className="columns-container"
           style={{
             display: "flex",
             gap: "10px",
             padding: "20px",
             justifyContent: "space-around",
-            marginLeft: "200px",
           }}
         >
-          {columnsToRender.map((col) => (
-            <Column
-              key={col.id}
-              column={col}
-              onRequestOpen={handleOpenTaskModal}
-              onDeleteTask={(taskId) => deleteTask(col.id, taskId)}
-            />
-          ))}
+          <div className="columns-container">
+            {columnsToRender.map((col) => (
+              <Column
+                key={col.id}
+                column={col}
+                onRequestOpen={handleOpenTaskModal}
+                onDeleteTask={(taskId) => deleteTask(col.id, taskId)}
+              />
+            ))}
+          </div>
         </div>
       </DndContext>
     </div>
