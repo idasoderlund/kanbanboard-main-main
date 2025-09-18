@@ -33,18 +33,19 @@ const Modal: React.FC<ModalProps> = ({ task, onClose, onSave, onDelete }) => {
 
   return (
     <div
+      className="modal-popup"
       style={{
         position: "fixed",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
         bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
+        //backgroundColor: "rgba(0,0,0,0.5)",
+        //backdropFilter: "blur(9px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 999,
-        width: "150",
       }}
     >
       <div

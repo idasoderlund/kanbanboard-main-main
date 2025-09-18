@@ -20,3 +20,14 @@ body {
     margin-left: 100px;
   }
 }
+
+@media (max-width: 768px) {
+  .modal-popup {
+    width: 20;
+  }
+}
+@media (min-width: 770px) {
+  .modal-popup {
+    width: 150;
+  }
+}

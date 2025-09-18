@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { /*useState,*/ useContext } from "react";
 import Card from "./Card";
 import { useDroppable } from "@dnd-kit/core";
 import { TaskContext } from "../Contexts/Context";
@@ -26,7 +26,7 @@ const Column: React.FC<ColumnProps> = ({ column, onRequestOpen }) => {
   //Hantera visning av formulär för att lägga till uppgift
   const [showAddTaskForm, setShowAddTaskForm] = React.useState(false);
   const [taskToDelete, setTaskToDelete] = React.useState<Task | null>(null);
-  const [isSelected, setIsSelected] = React.useState(false);
+  //const [isSelected, setIsSelected] = React.useState(false);
 
   const handleAddClick = () => {
     setShowAddTaskForm(true);
@@ -63,10 +63,10 @@ const Column: React.FC<ColumnProps> = ({ column, onRequestOpen }) => {
     onRequestOpen(task);
   };
 
-  const handleClickColumn = () => {
+  /*const handleClickColumn = () => {
     setIsSelected(true);
     navigate(`/column/${column.id}`);
-  };
+  };*/
 
   //Använder useDroppable för att göra kolumnen droppable i dnd-funktionaliteten
   const { isOver, setNodeRef } = useDroppable({
