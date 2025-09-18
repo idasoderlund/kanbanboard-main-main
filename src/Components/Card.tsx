@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { Task } from "../Types/Types";
 import { useDraggable } from "@dnd-kit/core";
 import Modal from "./Modal";
+import useMediaQuery from "../Hooks/UseMediaQuery";
 
 //Definerar ts interface för props som cardkomponenten ska ta emot
 interface CardProps {
@@ -17,14 +18,25 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({
   task,
   columnId,
-  onRequestDelete,
+  //onRequestDelete,
   onDeleteTask,
   onRequestOpen,
+  onUpdateTask,
 }) => {
+  const isSmallScreen = useMediaQuery("(max-width: 769px)");
   //Använder draggable-hook för att göra elementet dragbart
   const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({ id: task.id, data: { columnId, task } });
+    useDraggable({ id: task.id, data: { columnId, task }, disabled: true });
   // Här skickas unika id:t task.id för dragobjekt och ytterligare data alltså columnid och task
+
+  const handleClick = () => {
+    if (!isSmallScreen) {
+      onRequestOpen(task);
+      setShowModal(true);
+    } else {
+      handleOpenModal();
+    }
+  };
 
   //State för modal hanteringen
   const [showModal, setShowModal] = useState(false);
@@ -78,7 +90,7 @@ const Card: React.FC<CardProps> = ({
         style={style}
         {...listeners}
         {...attributes}
-        onClick={handleOpenModal}
+        onClick={handleClick}
       >
         {task.title}
       </div>
@@ -86,12 +98,8 @@ const Card: React.FC<CardProps> = ({
         <Modal
           task={task}
           onClose={handleCloseModal}
-          onSave={(updatedTask) => {
-            onRequestOpen(updatedTask);
-          }}
-          onDelete={() => {
-            onDeleteTask(task.id);
-          }}
+          onSave={handleSaveTask}
+          onDelete={handleDeleteTask}
         />
       )}
     </>

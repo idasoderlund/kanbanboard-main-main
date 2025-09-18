@@ -23,7 +23,7 @@ body {
 
 @media (max-width: 768px) {
   .modal-popup {
-    width: 20;
+    width: 40%;
   }
 }
 @media (min-width: 770px) {
