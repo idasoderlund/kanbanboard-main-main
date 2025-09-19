@@ -6,14 +6,16 @@ import type { Column as ColumnType, Task } from "../Types/Types";
 import AddTaskForm from "./AddTask";
 import DeleteTaskForm from "./DeleteTask";
 import { useNavigate } from "react-router-dom";
+//import { Direction } from "@dnd-kit/core/dist/types";
 
 interface ColumnProps {
   column: ColumnType;
+  columns: ColumnType[];
   onDeleteTask: (columnId: string, taskId: string) => void;
   onRequestOpen: (task: Task) => void;
 }
 //Funktionell komponent för att rendera en kolumn
-const Column: React.FC<ColumnProps> = ({ column, onRequestOpen }) => {
+const Column: React.FC<ColumnProps> = ({ column, columns, onRequestOpen }) => {
   const ctx = useContext(TaskContext);
   if (!ctx) throw new Error("TaskContext is missing...");
 
@@ -121,12 +123,16 @@ const Column: React.FC<ColumnProps> = ({ column, onRequestOpen }) => {
           key={task.id}
           task={task}
           columnId={column.id}
+          columnTasks={column.tasks}
+          columns={columns}
+          //columns={allColumns}
           onRequestDelete={() => handleRequestDelete(task)}
           onDeleteTask={() => ctx.deleteTask(column.id, task.id)}
           onRequestOpen={handleRequestOpen}
           onUpdateTask={(updatedTask) =>
             ctx.updateTask(column.id, updatedTask.id, updatedTask)
           }
+          onMoveTask={(/*taskToMove, direction*/) => {}}
         />
       ))}
 

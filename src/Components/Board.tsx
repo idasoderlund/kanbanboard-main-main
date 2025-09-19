@@ -47,6 +47,34 @@ const Board: React.FC = () => {
     }
   };
 
+  /*const handleMoveTask = (task: Task, direction: "up" | "down") => {
+    const currentColumn = columns.find((col) =>
+      col.tasks.some((t) => t.id === task.id)
+    );
+    if (!currentColumn) return;
+
+    //const taskIndex = currentColumn.tasks.findIndex((t) => t.id === task.id);
+
+    const currentColIndex = columns.findIndex(
+      (col) => col.id === currentColumn.id
+    );
+    let targetColIndex = currentColIndex;
+
+    if (direction === "up" && currentColIndex > 0) {
+      targetColIndex = currentColIndex - 1;
+    } else if (direction === "down" && currentColIndex < columns.length - 1) {
+      targetColIndex = currentColIndex + 1;
+    } else {
+      return;
+    }
+
+    const targetColumn = columns[targetColIndex];
+
+    ctx.moveTask(currentColumn.id, targetColumn.id, task.id);
+
+    //ctx.moveTask(currentColumn.id, targetColumn.id, TaskContext.id);
+  };*/
+
   //Renderar brädan med kolumnerna den är innesluten i DndContext för drag&släpp
   return (
     <div>
@@ -92,6 +120,7 @@ const Board: React.FC = () => {
               <Column
                 key={col.id}
                 column={col}
+                columns={columns}
                 onRequestOpen={handleOpenTaskModal}
                 onDeleteTask={(taskId) => deleteTask(col.id, taskId)}
               />

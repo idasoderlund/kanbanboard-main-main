@@ -3,49 +3,87 @@ import type { Task } from "../Types/Types";
 import { useDraggable } from "@dnd-kit/core";
 import Modal from "./Modal";
 import useMediaQuery from "../Hooks/UseMediaQuery";
+import TaskDropdown from "./TaskDropDown";
 
 //Definerar ts interface för props som cardkomponenten ska ta emot
+interface Column {
+  id: string;
+  tasks?: Task[];
+}
+
 interface CardProps {
   task: Task;
   columnId: string;
+  columnTasks: Task[];
+  columns: Column[];
   onRequestDelete: () => void;
   onDeleteTask: (taskId: string) => void;
   onRequestOpen: (task: Task) => void;
   onUpdateTask: (task: Task) => void;
+  onMoveTask?: (task: Task, direction: "up" | "down") => void;
 }
 
 //React funktionn  komponent för ett uppgiftskort
 const Card: React.FC<CardProps> = ({
   task,
   columnId,
+  columns,
   //onRequestDelete,
   onDeleteTask,
   onRequestOpen,
   onUpdateTask,
+  onMoveTask,
 }) => {
   const isSmallScreen = useMediaQuery("(max-width: 769px)");
   //Använder draggable-hook för att göra elementet dragbart
   const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({ id: task.id, data: { columnId, task }, disabled: true });
-  // Här skickas unika id:t task.id för dragobjekt och ytterligare data alltså columnid och task
+    useDraggable({
+      id: task.id,
+      data: { columnId, task },
+      disabled: true,
+    });
+  // Här skickas unika id:t task.id för dragobjekt och ytterligare data alltså columnid och task, händer över
+
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [targetTask, setTargetTask] = useState<Task | null>(null);
+  const [moveDirection, setMoveDirection] = useState<"up" | "down" | null>(
+    null
+  );
+  const [selectedTasKForMove, setselectedTasKForMove] = useState<Task | null>(
+    null
+  );
 
   const handleClick = () => {
     if (!isSmallScreen) {
       onRequestOpen(task);
-      setShowModal(true);
+      //setShowModal(true);
     } else {
-      handleOpenModal();
+      onRequestOpen(task); //Hade handleOpenModal(); före!!!
     }
   };
+
+  const handleMove = (direction: "up" | "down") => {
+    if (isSmallScreen) {
+      setShowDropDown(true);
+      setTargetTask(null);
+      setMoveDirection(direction);
+    } else {
+      if (onMoveTask && targetTask) {
+        onMoveTask(targetTask, direction);
+      }
+    }
+  };
+
+  //const columns = [{}];
 
   //State för modal hanteringen
   const [showModal, setShowModal] = useState(false);
 
   //Funktion för öppna modal
-  const handleOpenModal = () => {
+  /*const handleOpenModal = () => {
     onRequestOpen(task);
     setShowModal(true);
-  };
+  };*/
 
   //Funktion för att stänga modal
   const handleCloseModal = () => {
@@ -85,6 +123,127 @@ const Card: React.FC<CardProps> = ({
   //Sprider ut lyssnare och attribut som krövs för dragfunktion
   return (
     <>
+      {isSmallScreen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "5px",
+            right: "5px",
+            display: "flex",
+            gap: "4px",
+          }}
+        ></div>
+      )}
+      {showDropDown && selectedTasKForMove && (
+        <div
+          style={{
+            position: "absolute",
+            backgroundColor: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            padding: "10px",
+            zIndex: 1000,
+            top: "50px", // exempel placering
+            left: "50%", // exempel placering
+            transform: "translateX(-50%)",
+          }}
+        >
+          <div style={{ marginBottom: "10px" }}>move task</div>
+          {columns[0].tasks?.map((taskOption: Task) => (
+            <div
+              key={taskOption.id}
+              style={{
+                padding: "5px",
+                cursor: "pointer",
+                backgroundColor:
+                  selectedTasKForMove?.id === taskOption.id
+                    ? "#ddd"
+                    : "transparent",
+              }}
+              onClick={() => {
+                setselectedTasKForMove(taskOption);
+              }}
+            >
+              {taskOption.title}
+            </div>
+          ))}
+          <div style={{ marginTop: "10px" }}>
+            <button
+              onClick={() => {
+                if (onMoveTask && moveDirection) {
+                  onMoveTask(selectedTasKForMove, moveDirection);
+                }
+
+                setShowDropDown(false);
+                setselectedTasKForMove(null);
+                setMoveDirection(null);
+              }}
+            ></button>
+            <button
+              onClick={() => {
+                setShowDropDown(false);
+                setselectedTasKForMove(null);
+                setMoveDirection(null);
+              }}
+            >
+              Confirm move
+            </button>
+            <button
+              onClick={() => {
+                setShowDropDown(false);
+                setTargetTask(null);
+                setMoveDirection(null);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      {isSmallScreen && (
+        <div
+          style={{ display: "flex", justifyContent: "flex-end", gap: "4px" }}
+        >
+          <button onClick={() => handleMove("up")}>↑</button>
+          <button onClick={() => handleMove("down")}>↓</button>
+        </div>
+      )}
+
+      {showDropDown && (
+        <TaskDropdown
+          tasks={columns[0].tasks?.filter((t: Task) => t.id !== task.id) || []}
+          onSelect={(task) => setTargetTask(task)}
+          onClose={() => setShowDropDown(false)}
+        />
+      )}
+
+      {targetTask && moveDirection && (
+        <div style={{ marginTop: "10px" }}>
+          <button
+            onClick={() => {
+              if (onMoveTask) {
+                onMoveTask(targetTask, moveDirection);
+              }
+              setShowDropDown(false);
+              setTargetTask(null);
+              setMoveDirection(null);
+            }}
+          >
+            Confirm move here
+          </button>
+
+          <button
+            onClick={() => {
+              setShowDropDown(false);
+              setTargetTask(null);
+              setMoveDirection(null);
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
       <div
         ref={setNodeRef}
         style={style}
