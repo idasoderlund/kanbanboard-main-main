@@ -51,13 +51,19 @@ const MoveTaskMobile: React.FC = () => {
   return (
     <div
       style={{
-        margin: "1rem",
+        margin: "0.5rem",
         padding: "1rem",
         border: "1px solid #ccc",
         backgroundColor: "#fafafa",
+        width: "40%",
+        borderRadius: "4px",
+        marginLeft: "105px",
       }}
     >
-      <button onClick={() => setDropdownOpen(!dropdownOpen)}>
+      <button
+        style={{ width: "90%" }}
+        onClick={() => setDropdownOpen(!dropdownOpen)}
+      >
         {dropdownOpen ? "Close" : "Press to move task"}
       </button>
 
@@ -69,7 +75,7 @@ const MoveTaskMobile: React.FC = () => {
             style={{ padding: "0.5rem", width: "100%" }}
           >
             <option value="" disabled>
-              Select a task to move
+              Select task to move
             </option>
             {allTasksWithColumn.map((task) => (
               <option key={task.id} value={task.id}>
