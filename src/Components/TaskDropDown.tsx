@@ -25,7 +25,6 @@ const TaskDropdown: React.FC<TaskDropDownProps> = ({
         zIndex: 1000,
       }}
     >
-      <div style={{ marginBottom: "10px" }}>Select task to send</div>
       {tasks.map((task) => (
         <div
           key={task.id}

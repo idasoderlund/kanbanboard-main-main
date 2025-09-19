@@ -58,7 +58,7 @@ const MoveTaskMobile: React.FC = () => {
       }}
     >
       <button onClick={() => setDropdownOpen(!dropdownOpen)}>
-        {dropdownOpen ? "Close Move Task" : "Move Task"}
+        {dropdownOpen ? "Close" : "Press to move task"}
       </button>
 
       {dropdownOpen && (
