@@ -62,20 +62,6 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  const handleMove = (direction: "up" | "down") => {
-    if (isSmallScreen) {
-      setShowDropDown(true);
-      setTargetTask(null);
-      setMoveDirection(direction);
-    } else {
-      if (onMoveTask && targetTask) {
-        onMoveTask(targetTask, direction);
-      }
-    }
-  };
-
-  //const columns = [{}];
-
   //State för modal hanteringen
   const [showModal, setShowModal] = useState(false);
 
