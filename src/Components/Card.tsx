@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({
     useDraggable({
       id: task.id,
       data: { columnId, task },
-      disabled: true,
+      disabled: isSmallScreen,
     });
   // Här skickas unika id:t task.id för dragobjekt och ytterligare data alltså columnid och task, händer över
 
