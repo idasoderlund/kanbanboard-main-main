@@ -54,14 +54,14 @@ const MoveTaskMobile: React.FC = () => {
         margin: "0.5rem",
         padding: "1rem",
         border: "1px solid #ccc",
-        backgroundColor: "#fafafa",
+        backgroundColor: "#E4EFE7",
         width: "40%",
         borderRadius: "4px",
         marginLeft: "105px",
       }}
     >
       <button
-        style={{ width: "90%" }}
+        style={{ width: "90%", backgroundColor: "#E4EFE7" }}
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         {dropdownOpen ? "Close" : "Press to move task"}
