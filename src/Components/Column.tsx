@@ -65,11 +65,6 @@ const Column: React.FC<ColumnProps> = ({ column, columns, onRequestOpen }) => {
     onRequestOpen(task);
   };
 
-  /*const handleClickColumn = () => {
-    setIsSelected(true);
-    navigate(`/column/${column.id}`);
-  };*/
-
   //Använder useDroppable för att göra kolumnen droppable i dnd-funktionaliteten
   const { isOver, setNodeRef } = useDroppable({
     id: column.id,

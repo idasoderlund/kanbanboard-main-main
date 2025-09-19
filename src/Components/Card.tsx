@@ -79,12 +79,6 @@ const Card: React.FC<CardProps> = ({
   //State för modal hanteringen
   const [showModal, setShowModal] = useState(false);
 
-  //Funktion för öppna modal
-  /*const handleOpenModal = () => {
-    onRequestOpen(task);
-    setShowModal(true);
-  };*/
-
   //Funktion för att stänga modal
   const handleCloseModal = () => {
     setShowModal(false);
@@ -167,45 +161,6 @@ const Card: React.FC<CardProps> = ({
               {taskOption.title}
             </div>
           ))}
-          <div style={{ marginTop: "10px" }}>
-            <button
-              onClick={() => {
-                if (onMoveTask && moveDirection) {
-                  onMoveTask(selectedTasKForMove, moveDirection);
-                }
-
-                setShowDropDown(false);
-                setselectedTasKForMove(null);
-                setMoveDirection(null);
-              }}
-            ></button>
-            <button
-              onClick={() => {
-                setShowDropDown(false);
-                setselectedTasKForMove(null);
-                setMoveDirection(null);
-              }}
-            >
-              Confirm move
-            </button>
-            <button
-              onClick={() => {
-                setShowDropDown(false);
-                setTargetTask(null);
-                setMoveDirection(null);
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-      {isSmallScreen && (
-        <div
-          style={{ display: "flex", justifyContent: "flex-end", gap: "4px" }}
-        >
-          <button onClick={() => handleMove("up")}>↑</button>
-          <button onClick={() => handleMove("down")}>↓</button>
         </div>
       )}
 
