@@ -31,3 +31,36 @@ body {
     width: 150;
   }
 }
+
+.single-column-view {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 500px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 80vh;
+}
+.single-column-view .task-card {
+  margin-bottom: 10px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+@media (min-width: 769px) {
+  .single-column-placement {
+    margin-left: 400px;
+    width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .single-column-placement {
+    margin-left: 70px;
+    width: 250px;
+  }
+}

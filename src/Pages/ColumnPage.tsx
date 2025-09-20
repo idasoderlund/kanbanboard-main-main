@@ -71,38 +71,40 @@ const ColumnPage: React.FC = () => {
   //Rendera kolumntitel och dess uppgifter
   //Loopar igenom kolumnens uppgifter och visar varje uppgift
   return (
-    <div>
-      <h1>{column.title}</h1>
-      {column.tasks.map((task: Task) => (
-        <div
-          key={task.id}
-          style={{
-            padding: "8px",
-            border: "1px solid #ccc",
-            marginBottom: "5px",
-            cursor: "pointer",
-            backgroundColor: "#fff",
-          }}
-          onClick={() => handleOpenModal(task)}
-        >
-          {task.title}
-        </div>
-      ))}
+    <div className="single-column-placement">
+      <div className="single-column-view">
+        <h1>{column.title}</h1>
+        {column.tasks.map((task: Task) => (
+          <div
+            key={task.id}
+            style={{
+              padding: "8px",
+              border: "1px solid #ccc",
+              marginBottom: "5px",
+              cursor: "pointer",
+              backgroundColor: "#fff",
+            }}
+            onClick={() => handleOpenModal(task)}
+          >
+            {task.title}
+          </div>
+        ))}
 
-      {selectedTask && (
-        <Modal
-          task={selectedTask}
-          onClose={handleCloseModal}
-          onSave={(updatedTask: Task) => {
-            updateTask(column.id, updatedTask.id, updatedTask);
-            handleCloseModal();
-          }}
-          onDelete={(taskId: string) => {
-            deleteTask(column.id, taskId);
-            handleCloseModal();
-          }}
-        />
-      )}
+        {selectedTask && (
+          <Modal
+            task={selectedTask}
+            onClose={handleCloseModal}
+            onSave={(updatedTask: Task) => {
+              updateTask(column.id, updatedTask.id, updatedTask);
+              handleCloseModal();
+            }}
+            onDelete={(taskId: string) => {
+              deleteTask(column.id, taskId);
+              handleCloseModal();
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
