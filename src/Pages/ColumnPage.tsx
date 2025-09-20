@@ -73,7 +73,17 @@ const ColumnPage: React.FC = () => {
   return (
     <div className="single-column-placement">
       <div className="single-column-view">
-        <h1>{column.title}</h1>
+        <h1
+          style={{
+            color: "rgb(161, 194, 189)",
+            fontSize: "30px",
+            textShadow: "rgb(0, 0, 0) 1px 1px 2px",
+            marginLeft: "190px",
+            marginBottom: "60px",
+          }}
+        >
+          {column.title}
+        </h1>
         {column.tasks.map((task: Task) => (
           <div
             key={task.id}
